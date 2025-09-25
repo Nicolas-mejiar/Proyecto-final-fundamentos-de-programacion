@@ -1,8 +1,6 @@
-#proyecto de fundamentos de programacion 
-print("hola causas")
-Miembros de el equipo:
--Manuel"el supremo lider" Rincon
--Kiven Steve Pirajan Diaz
+#PROYECTO DE FUNDAMENTOS DE PROGRAMACIÓN 
+MIEMBROS:
 -Nicolas Alexander Mejia Rojas
+-Manuel Alejandro Rincon Gomez
+-Kiven Steve Pirajan Diaz
 -Bryan Steven Beltran Barbosa
-
