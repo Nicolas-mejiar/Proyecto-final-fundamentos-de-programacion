@@ -8,5 +8,5 @@ KIVEN STEVE PIRAJAN DIAZ
 MANUEL ALEJANDRO RINCON GOMEZ
 NICOLAS ALEXANDER MEJÍA ROJAS
 ● Curso / Grupo:GRUPO A
-● Fecha de entrega:
+● Fecha de entrega:17/10/2025
 ● Profesor:Pablo Enrique Carrreño Hernandez
