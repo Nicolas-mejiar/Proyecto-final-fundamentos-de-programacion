@@ -1,5 +1,5 @@
 #PROYECTO DE FUNDAMENTOS DE PROGRAMACIÓN 
-MIEMBROS:
+**Miembros**:
 -Nicolas Alexander Mejia Rojas
 -Manuel Alejandro Rincon Gomez
 -Kiven Steve Pirajan Diaz
