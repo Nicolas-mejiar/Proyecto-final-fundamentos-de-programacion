@@ -27,7 +27,7 @@ El resultado esperado es una experiencia accesible e informativa, que facilite e
 - Documentar el código de manera detallada mediante comentarios, de modo que personas con conocimientos previos en programación puedan comprender el funcionamiento y la lógica detrás de cada sección del código sin dificultad
 ## 6. **Requisitos**
 - Python 3.13 o superior
-- Librerias "-------"
+- Librerias "Pandas y NumPy"
 ## "------------------------------------------------ Falta por realizar"
 7. Diseño del Proyecto
 Arquitectura o estructura del programa: (modularización, funciones, clases, etc.)
