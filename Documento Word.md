@@ -12,7 +12,12 @@
 ### Fecha de entrega: 17/10/2025
 ### Profesor: Pablo Enrique Carrreño Hernandez
 ## 2. Título del Proyecto: **DATA LEAGUE** 
-## 3. Descripción del Proyecto: "------------------"
+## 3. Descripción del Proyecto: 
+"Este proyecto consiste en la creación de un conjunto de datos de la Premier League correspondiente a la temporada 2023-2024, utilizando Python para su exploración y análisis. El propósito principal es ofrecer una herramienta que permita visualizar el desarrollo de la temporada regular, así como generar predicciones para futuras ediciones de la liga.
+Está dirigido a aficionados del fútbol, analistas deportivos y personas interesadas en el comportamiento de la liga inglesa, quienes podrán acceder a los datos de forma clara y ordenada. A través de una tabla interactiva, el usuario puede consultar información relevante, que por defecto se muestra ordenada por puntaje de mayor a menor, aunque también tiene la opción de reorganizarla según sus intereses o necesidades específicas.
+
+El resultado esperado es una experiencia accesible e informativa, que facilite el análisis de rendimiento de los equipos y permita sacar conclusiones o generar predicciones basadas en datos reales de la temporada.
+"
 ## 4. Objetivos
 ### **General**:
 - Analizar las tendencias de la Premier League y su enfoque a los resultados obtenidos durante la temporada 23-24
