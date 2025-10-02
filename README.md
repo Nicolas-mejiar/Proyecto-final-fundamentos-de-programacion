@@ -1,4 +1,4 @@
-## **DATA LEAGUE**
+## DATA LEAGUE
 
 Este proyecto consiste en la creación de un conjunto de datos de la Premier League correspondiente a la temporada 2023-2024, utilizando Python para su exploración y análisis.
 
