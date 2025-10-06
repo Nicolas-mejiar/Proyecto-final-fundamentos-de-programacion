@@ -12,5 +12,5 @@ Este proyecto consiste en la creación de un conjunto de datos de la Premier Lea
 
 ## Requisitos
 1. Python 3.13.5 o superior
-2. Librerias "Pandas","Os","Time"
+2. Librerias: "Pandas","Os","Time"
 
