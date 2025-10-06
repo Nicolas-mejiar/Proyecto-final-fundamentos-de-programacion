@@ -1,4 +1,14 @@
 import pandas as pd
+import os #Libreria para limpiar pantalla
+import time #Libreria para usar el tiempo
+
+#Funcion para limpiar pantalla
+def limpiar_Pantalla():
+    # Determina el sistema operativo y ejecuta el comando de limpieza 
+    if os.name == 'nt': # 'nt' es para Windows
+        os.system('cls')
+    else: # 'posix' es para Linux/macOS
+        os.system('clear')
 
 # Función para ingresar datos de los equipos
 def datos_Equipos(equipos, datos):
@@ -24,6 +34,7 @@ def datos_Equipos(equipos, datos):
         equipos.append(nombre)
         datos.append((PJ, PG, PE, PP, GF, GC, DG, Puntos, Prom_Victorias, TA, TR, Dt, Estadio, Temporada))
         contador += 1
+        limpiar_Pantalla() #Limpia Pantalla
 
 # Función para generar diferentes tablas usando pandas
 def generar_tablas(equipos, datos):
@@ -59,6 +70,8 @@ datos = []
 
 # Llamada a la función para ingresar datos
 datos_Equipos(equipos, datos)
+time.sleep(1) #Espera un segundo
+limpiar_Pantalla()c #Limpia Pantalla
 
 # Mostrar las tablas con pandas
 generar_tablas(equipos, datos)
