@@ -32,21 +32,27 @@ def generar_tablas(equipos, datos):
                 "ENTRENADOR", "ESTADIO", "TEMPORADA"]
     df = pd.DataFrame(datos, columns=columnas, index=equipos)
     
+    print("\n" + "="*80)
     print("\nTabla original:")
     print(df)
+    print("="*80)
     
     print("\nTabla ordenada por PUNTOS (de mayor a menor):")
     print(df.sort_values(by='PUNTOS', ascending=False))
-    
+    print("="*80)
+
     print("\nEquipos con más de 10 puntos:")
     print(df[df['PUNTOS'] > 10])
-    
+    print("="*80)
+
     print("\nEquipos con porcentaje de victorias mayor al 50%:")
     print(df[df['% VICTORIAS'] > 50])
-    
+    print("="*80)
+
     print("\nTabla con columnas seleccionadas (PUNTOS, ENTRENADOR, TEMPORADA):")
     print(df[['PUNTOS', 'ENTRENADOR', 'TEMPORADA']])
-
+    print("="*80)
+    
 # Programa Principal
 equipos = []
 datos = []
