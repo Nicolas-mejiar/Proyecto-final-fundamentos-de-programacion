@@ -71,7 +71,7 @@ datos = []
 # Llamada a la función para ingresar datos
 datos_Equipos(equipos, datos)
 time.sleep(1) #Espera un segundo
-limpiar_Pantalla()c #Limpia Pantalla
+limpiar_Pantalla() #Limpia Pantalla
 
 # Mostrar las tablas con pandas
 generar_tablas(equipos, datos)
