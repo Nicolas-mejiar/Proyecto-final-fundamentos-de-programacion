@@ -16,7 +16,8 @@ def datos_Equipos(equipos, datos):
     contador = 0
     cantidad = int(input("Cuantos equipos va a ingresar: "))
     while contador < cantidad:
-        nombre = input("Nombre del equipo: ")
+        print("Ingrese los datos del equipo",(contador + 1))
+        nombre = input("Nombre del equipo:")
         PJ = int(input("Partidos jugados: "))
         PG = int(input("Partidos ganados: "))
         PE = int(input("Partidos empatados: "))
@@ -43,26 +44,26 @@ def generar_tablas(equipos, datos):
                 "ENTRENADOR", "ESTADIO", "TEMPORADA"]
     df = pd.DataFrame(datos, columns=columnas, index=equipos)
     
-    print("\n" + "="*80)
+    print("\n" + "-"*160)
     print("\nTabla original:")
     print(df)
-    print("="*80)
+    print("-"*160)
     
     print("\nTabla ordenada por PUNTOS (de mayor a menor):")
     print(df.sort_values(by='PUNTOS', ascending=False))
-    print("="*80)
+    print("-"*160)
 
     print("\nEquipos con más de 10 puntos:")
     print(df[df['PUNTOS'] > 10])
-    print("="*80)
+    print("-"*160)
 
     print("\nEquipos con porcentaje de victorias mayor al 50%:")
     print(df[df['% VICTORIAS'] > 50])
-    print("="*80)
+    print("-"*160)
 
     print("\nTabla con columnas seleccionadas (PUNTOS, ENTRENADOR, TEMPORADA):")
     print(df[['PUNTOS', 'ENTRENADOR', 'TEMPORADA']])
-    print("="*80)
+    print("-"*160)
     
 # Programa Principal
 equipos = []
