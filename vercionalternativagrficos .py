@@ -1,12 +1,3 @@
-# -----------------------------------------------------------
-# Proyecto: Premier League 2023/2024
-# Autor: [Tu nombre]
-# Descripción:
-#   Este programa permite ingresar los datos de varios equipos
-#   de la Premier League, calcular sus estadísticas y generar
-#   una tabla de posiciones ordenada automáticamente por puntos.
-# -----------------------------------------------------------
-
 import pandas as pd
 import matplotlib.pyplot as plt
 import os  # Importamos os para limpiar pantalla
@@ -15,18 +6,14 @@ import os  # Importamos os para limpiar pantalla
 # Función para limpiar pantalla
 # -----------------------------------------------------------
 def limpiar_pantalla():
-    os.system('cls' if os.name == 'nt' else 'clear')  # cls para Windows, clear para Unix/Linux/Mac
-
-# -----------------------------------------------------------
-# Función para ingresar datos de los equipos
-# -----------------------------------------------------------
+    os.system('cls' if os.name == 'nt' else 'clear')  
 def datos_Equipos():
     equipos = []
     datos = []
     cantidad = int(input("¿Cuántos equipos vas a ingresar?: "))
 
     for i in range(cantidad):
-        limpiar_pantalla()  # Limpiar pantalla antes de cada equipo
+        limpiar_pantalla() 
         print(f"\n=== Equipo #{i+1} ===")
         nombre = input("Nombre del equipo: ")
         PJ = int(input("Partidos jugados: "))
@@ -49,9 +36,9 @@ def datos_Equipos():
 
     return equipos, datos
 
-# -----------------------------------------------------------
+
 # Función para construir la tabla con pandas
-# -----------------------------------------------------------
+
 def construir_tabla(equipos, datos):
     columnas = [
         "Equipo", "PJ", "PG", "PE", "PP", "GF", "GC", "DG",
@@ -69,21 +56,15 @@ def construir_tabla(equipos, datos):
     tabla = tabla.sort_values(by="Puntos", ascending=False).reset_index(drop=True)
     tabla.index += 1
     return tabla
-
-# -----------------------------------------------------------
 # Función para mostrar tabla y guardar archivo
-# -----------------------------------------------------------
 def mostrar_y_guardar(tabla):
     print("\n=== TABLA DE POSICIONES PREMIER LEAGUE 2023/2024 ===")
     print(tabla.to_string(index=True))
 
     # Guardar en CSV
     tabla.to_csv("tabla_premier_2324.csv", index=False, encoding="utf-8-sig")
-    print("\n✅ Datos guardados en 'tabla_premier_2324.csv' correctamente.")
-
-# -----------------------------------------------------------
+    print("\n Datos guardados en 'tabla_premier_2324.csv' correctamente.")
 # Función opcional: gráfico de puntos
-# -----------------------------------------------------------
 def graficar(tabla):
     plt.figure(figsize=(10, 6))
     plt.bar(tabla["Equipo"], tabla["Puntos"], color="royalblue")
@@ -92,17 +73,14 @@ def graficar(tabla):
     plt.ylabel("Puntos")
     plt.tight_layout()
     plt.show()
-
-# -----------------------------------------------------------
 # Programa principal
-# -----------------------------------------------------------
 def main():
     while True:
-        limpiar_pantalla()  # Limpiar pantalla al inicio
+        limpiar_pantalla()
         print("===== PROYECTO: PREMIER LEAGUE 2023/2024 =====")
         equipos, datos = datos_Equipos()
         tabla = construir_tabla(equipos, datos)
-        limpiar_pantalla()  # Limpiar pantalla antes de mostrar tabla
+        limpiar_pantalla() 
         mostrar_y_guardar(tabla)
 
         opcion = input("\n¿Deseas ver un gráfico de puntos? (s/n): ").lower()
@@ -117,3 +95,4 @@ def main():
 # Ejecutar
 if __name__ == "__main__":
     main()
+
