@@ -25,20 +25,20 @@ El resultado esperado es una experiencia accesible e informativa, que facilite e
 - Implementar funciones, estructuras iterativas (como bucles for y while) y condicionales (if, else) para facilitar la modularidad, flexibilidad y reutilización del código.
 - Utilizar librerías apropiadas junto con listas, tuplas y matrices para organizar y mostrar visualmente la información en forma de tablas claras y estructuradas.
 - Documentar el código de manera detallada mediante comentarios, de modo que personas con conocimientos previos en programación puedan comprender el funcionamiento y la lógica detrás de cada sección del código sin dificultad
-## 6. **Requisitos**
+## 5. **Requisitos**
 - Python 3.13 o superior
 - Librerias "Pandas y NumPy"
 ## "------------------------------------------------ Falta por realizar"
-7. Diseño del Proyecto
+6. Diseño del Proyecto
 Arquitectura o estructura del programa: (modularización, funciones, clases, etc.)
 Diagrama de flujo 
 Interfaz (si aplica): descripción o imagen de la interfaz gráfica o consola
 
-8. **Desarrollo**
+7. **Desarrollo**
 Explicación paso a paso de cómo se desarrolló el proyecto
 Fragmentos de código relevantes comentados
 Descripción de las funciones principales
-9. **Pruebas y Resultados**
+8. **Pruebas y Resultados**
 Cómo se probó el programa
 Capturas de pantalla o ejemplos de ejecución
 Resultados obtenidos
