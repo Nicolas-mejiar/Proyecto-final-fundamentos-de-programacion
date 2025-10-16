@@ -36,7 +36,7 @@ Interfaz (si aplica): descripción o imagen de la interfaz gráfica o consola
 
 7. **Desarrollo**
 **Explicación paso a paso de cómo se desarrolló el proyecto**
-A.##Primero, usamos algunas librerías para manejar datos, limpiar la pantalla y mostrar tablas bonitas.
+   ###Primero, usamos algunas librerías para manejar datos, limpiar la pantalla y mostrar tablas bonitas.
 import pandas as pd  # Para trabajar con tablas de datos
 import os           # Para limpiar la pantalla
 import time         # Para hacer pausas
@@ -48,7 +48,7 @@ def limpiar_Pantalla():
         os.system('cls')
     else:                # Si usas Linux o Mac
         os.system('clear')
-C.##Aquí le preguntamos al usuario cuántos equipos quiere ingresar, y vamos pidiendo los datos uno por uno: partidos jugados, ganados, goles, tarjetas, etc.
+C.###Aquí le preguntamos al usuario cuántos equipos quiere ingresar, y vamos pidiendo los datos uno por uno: partidos jugados, ganados, goles, tarjetas, etc.
             Además, calculamos cosas importantes como:
 
 Diferencia de goles (goles a favor menos goles en contra
@@ -75,7 +75,7 @@ def datos_Equipos(datos):
         Temporada = "2024/2025"
         datos.append((nombre, PJ, PG, PE, PP, GF, GC, DG, Puntos, Prom_Victorias, TA, TR, Dt, Estadio, Temporada))
         limpiar_Pantalla()
-D.##Para que todo se vea lindo y ordenado, usamos pandas para organizar los datos y tabulate para imprimir tablas con bordes y todo centrado.
+D.###Para que todo se vea lindo y ordenado, usamos pandas para organizar los datos y tabulate para imprimir tablas con bordes y todo centrado.
 
 def imprimir_Tabla(df):
     print(tabulate(
@@ -86,7 +86,7 @@ def imprimir_Tabla(df):
         stralign='center',
         numalign='center'
     ))
-E.##Por último, mostramos:
+E.###Por último, mostramos:
 La tabla completa con todos los dato,la tabla ordenada por puntos, de mayor a menor
 Equipos con más de 10 puntos
 Equipos con más del 50% de victorias
