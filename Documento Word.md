@@ -29,13 +29,13 @@ El resultado esperado es una experiencia accesible e informativa, que facilite e
 - Python 3.13 o superior
 - Librerias "Pandas y NumPy"
 ## "------------------------------------------------ Falta por realizar"
-6. Diseño del Proyecto
+6. **Diseño del Proyecto**
 Arquitectura o estructura del programa: (modularización, funciones, clases, etc.)
 Diagrama de flujo 
 Interfaz (si aplica): descripción o imagen de la interfaz gráfica o consola
 
 7. **Desarrollo**
-Explicación paso a paso de cómo se desarrolló el proyecto
+**Explicación paso a paso de cómo se desarrolló el proyecto**
 Fragmentos de código relevantes comentados
 Descripción de las funciones principales
 8. **Pruebas y Resultados**
