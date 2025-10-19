@@ -1,41 +1,87 @@
-#Prueba Numero 1
-#Funciones
-#En esta funcion se piden los datos de los equipos y se guardan en las listas
-def datos_Equipos(equipos,datos):
-    global cantidad
-    contador = 0
-    cantidad = int(input("Cuantos equipos va a ingresar: "))
-    while contador < cantidad:
-        nombre = input("Nombre del equipo: ")
-        PJ = int(input("Partidos jugados: "))
-        PG = int(input("Paridos ganados: "))
-        PE = int(input("Partidos empatados: "))
-        PP = int(input("Partidos perdidos: "))
-        GF = int(input("Goles a favor: "))
-        GC = int(input("Goles en contra: "))
-        DG = GF - GC   #DG es diferencia de gol
-        Puntos = (PG * 3) + (PE * 1)
-        Prom_Victorias = (PG/PJ) * 100
-        TA = int(input("Tarjetas amarillas: "))
-        TR = int(input("Tarjetas rojas: "))
-        Dt = input("Entrenador: ")
-        Estadio = input("Estadio: ")
-        Temporada = ("2023/2024")
-        equipos.append(nombre)
-        datos.append((PJ,PG,PE,PP,GF,GC,DG,Puntos,Prom_Victorias,TA,TR,Dt,Estadio,Temporada))
-        contador += 1
+import streamlit as st #Libreria para la interfaz grafica
+import pandas as pd #Libreria para poder tabular los datos y usar archivos .csv
+import re #Libreria para poder manipular texto con patrones
 
-#Programa Principal
-cantidad = 0
-equipos = []
-datos = []
-datos_Equipos(equipos,datos)
-#Esta no es la tabla definitiva toca hacerla con la biblioteca pandas, solo es para verificar que si se guardaron los datos en las listas 
-#Tambien toca mirar como ordenar los equipos de mayor a menor con los puntos 
-print("\n///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////")
-print("| NOMBRE | PJ | PG | PE | PP | GF | GC | DG | PUNTOS | % VICTORIAS | TARJETAS AMARILLAS | TARJETAS ROJAS | ENTRENADOR | ESTADIO | TEMPORADA |")
-for i in range(cantidad):
-    print(equipos[i],datos[i])
-print("/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////")
 
+#Funcion para cargar los datos del excel en el data frame 
+def cargar_Datos(ruta):
+    df = pd.read_csv(ruta, sep= ";")
+    df["ENTRENADOR"] = df["ENTRENADOR"].apply(lambda x: re.sub(r'(?<!^)(?=[A-Z])', ' ', x)) #Separa el Nombre del Entrenador
+    df["ESTADIO"] = df["ESTADIO"].apply(lambda x: re.sub(r'(?<!^)(?=[A-Z])', ' ', x)) #Separa el Nombre del Estadio
+    return df
+
+#Se guarda en una variable la ruta del excel
+ruta = "Datos/Premier_24_25.csv"
+df = cargar_Datos(ruta)
+df = df.sort_values(by="EQUIPO")  #Se ordena la tabla por defecto por orden Alfabetico
+
+#Columnas De La Premier League
+col1,linea1,espacio1,col2,col3 = st.columns([3,0.01,0.1,3,3])
+
+with col1:
+    st.image("Logos/Premier_League.png",width=500,)
+
+with linea1:
+    st.markdown("|\n"*30)
+
+with espacio1:
+    st.write("")
+
+with col2:
+    st.title("PREMIER LEAGUE")
+    st.subheader("Pais: Inglaterra")
+    st.subheader("Division: 1")
+    st.subheader("Temporada: 2024/2025")
+    st.subheader("Partidos: 380")
+
+with col3:
+    st.subheader("Datos Basicos:")
+    st.markdown("1. PJ = Partidos Jugados\n2. PG = Partidos Ganados\n3. PE = Partidos Empatados\n4. PP = Partidos Perdidos\n5. GF = Goles A Favor\n" \
+    "6. GC = Goles En Contra\n7. DG = Diferencia De Gol\n8. TA = Tarjetas Amarillas\n9. TR = Tarjetas Rojas")
+
+#Se muestra la tabla original de la Premier
+st.markdown("---")
+st.title("Tabla De La Liga")
+st.set_page_config(layout="wide")
+st.dataframe(df, use_container_width=True, height=738, hide_index=True)
+
+#Se muestra la tabla con los equipos clasificados a la Champions
+st.markdown("---")
+st.title("Equipos clasificados a la Champions League")
+df_ordenado = df.sort_values(by="PUNTOS", ascending=False).reset_index(drop=True)
+top_5 = df_ordenado.head(5)
+st.dataframe(top_5, use_container_width=True, hide_index=True)
+
+#Se muestra la tabla con los equipos clasificados a la Europa 
+st.markdown("---")
+st.title("Equipos Clasificados A La Europa League")
+top_6_7 = df_ordenado[5:7]
+st.dataframe(top_6_7, use_container_width=True, hide_index=True)
+
+#Se muestra la tabla con los equipos que Descienden
+st.markdown("---")
+st.title("Equipos Que Descienden")
+ultimos_3 = df_ordenado.tail(3)
+st.dataframe(ultimos_3, use_container_width=True, hide_index=True)
+
+#Se muestra al equipo que gano la liga en la temporada 24/25
+st.markdown("---")
+st.title("Campeon de la Premier")
+ganador = df.loc[df["PUNTOS"].idxmax()]
+
+#Columnas del equipo ganador
+logo,datos = st.columns([5,5])
+with logo:
+    st.image(f"Logos/{ganador["EQUIPO"]}.png",width=500)
+with datos:
+    st.title(f"Equipo: {ganador["EQUIPO"]}")
+    st.subheader(f"• Entrenador: {ganador["ENTRENADOR"]}")
+    st.subheader(f"• Estadio: {ganador["ESTADIO"]}")
+    st.subheader(f"• Puntos: {ganador["PUNTOS"]}")
+    st.subheader(f"• Victorias: {ganador["PG"]}")
+    st.subheader(f"• Empates: {ganador["PE"]}")
+    st.subheader(f"• Derrotas: {ganador["PP"]}")
+st.markdown("---")
+
+#Futura Opcion en la que el usuario podra buscar un equipo y mostrar sus estadisticas
 
