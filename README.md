@@ -1,6 +1,6 @@
 ## DATA LEAGUE
 
-Este proyecto consiste en la creación de un conjunto de datos de la Premier League correspondiente a la temporada 2023-2024, utilizando Python para su exploración y análisis.
+Este proyecto consiste en la creación de un conjunto de datos de la Premier League correspondiente a la temporada 24/25, utilizando un archivo .csv y Python para su exploración y análisis.
 
 ## Grupo : A
 
@@ -12,5 +12,5 @@ Este proyecto consiste en la creación de un conjunto de datos de la Premier Lea
 
 ## Requisitos
 1. Python 3.13.5 o superior
-2. Librerias: "Pandas","Os","Time","numpy","tabulate"
+2. Librerias: "Pandas","re","streamlit"
 
