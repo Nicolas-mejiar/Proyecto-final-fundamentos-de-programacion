@@ -1,8 +1,14 @@
+#IMPORTANTE#
+#Instalar las librerias, escribir en la terminal "pip instal (libreria que va a instalar)"
+#Para ejecutar el codigo escribir en la terminal "streamlit run Codigos/Prueba_Interfaz.py"
+#Para abrir la interfaz precionar control + clic izquierdo en el link que aparece en la terminal a la derecha de "Local URL:"
+
+
 import streamlit as st #Libreria para la interfaz grafica
 import pandas as pd #Libreria para poder tabular los datos y usar archivos .csv
 import re #Libreria para poder manipular texto con patrones
 
-
+#Funciones
 #Funcion para cargar los datos del excel en el data frame 
 def cargar_Datos(ruta):
     df = pd.read_csv(ruta, sep= ";")
@@ -10,6 +16,7 @@ def cargar_Datos(ruta):
     df["ESTADIO"] = df["ESTADIO"].apply(lambda x: re.sub(r'(?<!^)(?=[A-Z])', ' ', x)) #Separa el Nombre del Estadio
     return df
 
+#Programa Principal
 #Se guarda en una variable la ruta del excel
 ruta = "Datos/Premier_24_25.csv"
 df = cargar_Datos(ruta)
