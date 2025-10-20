@@ -1,19 +1,20 @@
 #IMPORTANTE#
-#Instalar las librerias, escribir en la terminal "pip instal (libreria que va a instalar)"
+#Instalar las librerias, escribir en la terminal "pip install streamlit"
 #Para ejecutar el codigo escribir en la terminal "streamlit run Codigos/Prueba_Interfaz.py"
 #Para abrir la interfaz precionar control + clic izquierdo en el link que aparece en la terminal a la derecha de "Local URL:"
 
 
-import streamlit as st #Libreria para la interfaz grafica
+import streamlit as st #Libreria para la interfaz web
 import pandas as pd #Libreria para poder tabular los datos y usar archivos .csv
 import re #Libreria para poder manipular texto con patrones
-
+st.set_page_config(layout="wide")
 #Funciones
 #Funcion para cargar los datos del excel en el data frame 
 def cargar_Datos(ruta):
     df = pd.read_csv(ruta, sep= ";")
     df["ENTRENADOR"] = df["ENTRENADOR"].apply(lambda x: re.sub(r'(?<!^)(?=[A-Z])', ' ', x)) #Separa el Nombre del Entrenador
     df["ESTADIO"] = df["ESTADIO"].apply(lambda x: re.sub(r'(?<!^)(?=[A-Z])', ' ', x)) #Separa el Nombre del Estadio
+    df["EQUIPO"] = df["EQUIPO"].apply(lambda x: re.sub(r'(?<!^)(?=[A-Z])', ' ', x)) #Separa el Nombre del Equipo
     return df
 
 #Programa Principal
@@ -42,7 +43,7 @@ with col2:
     st.subheader("Partidos: 380")
 
 with col3:
-    st.subheader("Datos Basicos:")
+    st.subheader("Leyenda De Columnas:")
     st.markdown("1. PJ = Partidos Jugados\n2. PG = Partidos Ganados\n3. PE = Partidos Empatados\n4. PP = Partidos Perdidos\n5. GF = Goles A Favor\n" \
     "6. GC = Goles En Contra\n7. DG = Diferencia De Gol\n8. TA = Tarjetas Amarillas\n9. TR = Tarjetas Rojas")
 
