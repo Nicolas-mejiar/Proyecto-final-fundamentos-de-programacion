@@ -92,4 +92,41 @@ with datos:
 st.markdown("---")
 
 #Futura Opcion en la que el usuario podra buscar un equipo y mostrar sus estadisticas
+st.title("Buscar Estadísticas De Un Equipo")
 
+# Lista de equipos ordenada alfabéticamente
+equipos = df["EQUIPO"].sort_values().unique()
+
+# Selectbox para elegir el equipo
+equipo_seleccionado = st.selectbox("Selecciona un equipo", equipos)
+
+# Filtrar el dataframe para el equipo seleccionado
+equipo_df = df[df["EQUIPO"] == equipo_seleccionado].iloc[0]
+
+# Mostrar estadísticas
+col_logo,linea,espacio,col_info = st.columns([1,0.01,0.5, 2])
+with col_logo:
+    try:
+        st.image(f"Logos/{equipo_df['EQUIPO']}.png", width=500)
+    except:
+        st.warning("Logo no disponible.")
+with linea:
+    st.markdown("|\n"*44)
+
+with espacio:
+    st.write("")
+
+with col_info:
+    st.subheader(f"Equipo: {equipo_df['EQUIPO']}")
+    st.text(f"Entrenador: {equipo_df['ENTRENADOR']}")
+    st.text(f"Estadio: {equipo_df['ESTADIO']}")
+    st.text(f"Puntos: {equipo_df['PUNTOS']}")
+    st.text(f"Partidos Jugados: {equipo_df['PJ']}")
+    st.text(f"Victorias: {equipo_df['PG']}")
+    st.text(f"Empates: {equipo_df['PE']}")
+    st.text(f"Derrotas: {equipo_df['PP']}")
+    st.text(f"Goles a Favor: {equipo_df['GF']}")
+    st.text(f"Goles en Contra: {equipo_df['GC']}")
+    st.text(f"Diferencia de Gol: {equipo_df['DG']}")
+    st.text(f"Tarjetas Amarillas: {equipo_df['TA']}")
+    st.text(f"Tarjetas Rojas: {equipo_df['TR']}")
