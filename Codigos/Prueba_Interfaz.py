@@ -7,7 +7,10 @@
 import streamlit as st #Libreria para la interfaz web
 import pandas as pd #Libreria para poder tabular los datos y usar archivos .csv
 import re #Libreria para poder manipular texto con patrones
+import os 
+
 st.set_page_config(layout="wide")
+
 #Funciones
 #Funcion para cargar los datos del excel en el data frame 
 def cargar_Datos(ruta):
@@ -18,10 +21,49 @@ def cargar_Datos(ruta):
     return df
 
 #Programa Principal
-#Se guarda en una variable la ruta del excel
-ruta = "Datos/Premier_24_25.csv"
+
+#Selector De Temporadas
+
+st.title(("Elija La Temporada (2000-2025)"))
+
+temporadas = {
+    "2000/2001" : "Datos/premier_2000_2001.csv",
+    "2001/2002" : "Datos/premier_2001_2002.csv",
+    "2002/2003" : "Datos/premier_2002_2003.csv",
+    "2003/2004" : "Datos/premier_2003_2004.csv",
+    "2004/2005" : "Datos/premier_2004_2005.csv",
+    "2005/2006" : "Datos/premier_2005_2006.csv",
+    "2006/2007" : "Datos/premier_2006_2007.csv",
+    "2007/2008" : "Datos/premier_2007_2008.csv",
+    "2008/2009" : "Datos/premier_2008_2009.csv",
+    "2009/2010" : "Datos/premier_2009_2010.csv",
+    "2010/2011" : "Datos/premier_2010_2011.csv",
+    "2011/2012" : "Datos/premier_2011_2012.csv",
+    "2012/2013" : "Datos/premier_2012_2013.csv",
+    "2013/2014" : "Datos/premier_2013_2014.csv",
+    "2014/2015" : "Datos/premier_2014_2015.csv",
+    "2015/2016" : "Datos/premier_2015_2016.csv",
+    "2016/2017" : "Datos/premier_2016_2017.csv",
+    "2017/2018" : "Datos/premier_2017_2018.csv",
+    "2018/2019" : "Datos/premier_2018_2019.csv",
+    "2019/2020" : "Datos/premier_2019_2020.csv",
+    "2020/2021" : "Datos/premier_2020_2021.csv",
+    "2021/2022" : "Datos/premier_2021_2022.csv",
+    "2022/2023" : "Datos/premier_2022_2023.csv",
+    "2023/2024" : "Datos/premier_2023_2024.csv",
+    "2024/2025" : "Datos/premier_2024_2025.csv"
+}
+
+temporada_sel = st.selectbox("Selecciona una temporada", list(temporadas.keys()))
+
+ruta = temporadas[temporada_sel]
+# Cargar datos
+if not os.path.exists(ruta):
+    st.error(f"No se encontró el archivo: {ruta}")
+    st.stop()
+
 df = cargar_Datos(ruta)
-df = df.sort_values(by="EQUIPO")  #Se ordena la tabla por defecto por orden Alfabetico
+df = df.sort_values(by="EQUIPO")
 
 #Columnas De La Premier League
 col1,linea1,espacio1,col2,col3 = st.columns([3,0.01,0.1,3,3])
@@ -39,7 +81,7 @@ with col2:
     st.title("PREMIER LEAGUE")
     st.subheader("Pais: Inglaterra")
     st.subheader("Division: 1")
-    st.subheader("Temporada: 2024/2025")
+    st.subheader(f"Temporada: {temporada_sel}")
     st.subheader("Partidos: 380")
 
 with col3:
@@ -78,9 +120,10 @@ st.title("Campeon de la Premier")
 ganador = df.loc[df["PUNTOS"].idxmax()]
 
 #Columnas del equipo ganador
-logo,datos = st.columns([5,5])
+logo,datos = st.columns([2,3])
 with logo:
-    st.image(f"Logos/{ganador["EQUIPO"]}.png",width=500)
+    nombre_logo = ganador['EQUIPO'].replace(' ', '').replace('-', '').lower()
+    st.image(f"Logos/{nombre_logo}.png", width=500)
 with datos:
     st.title(f"Equipo: {ganador["EQUIPO"]}")
     st.subheader(f"• Entrenador: {ganador["ENTRENADOR"]}")
@@ -104,15 +147,31 @@ equipo_seleccionado = st.selectbox("Selecciona un equipo", equipos)
 equipo_df = df[df["EQUIPO"] == equipo_seleccionado].iloc[0]
 
 # Mostrar estadísticas
-col_logo,linea,espacio,col_info = st.columns([1,0.01,0.5, 2])
+col_logo,espacio,col_info = st.columns([1,0.5,2])   
 with col_logo:
-    try:
-        st.image(f"Logos/{equipo_df['EQUIPO']}.png", width=500)
-    except:
+    # Normalizar el nombre del equipo (todo en minúsculas, sin espacios, guiones ni apóstrofes)
+    nombre_equipo = equipo_df['EQUIPO'].lower().replace(" ", "").replace("-", "").replace("'", "")
+    
+    # Carpeta donde están los logos
+    carpeta_logos = "Logos"
+    
+    # Listar todos los archivos .png
+    archivos = [f for f in os.listdir(carpeta_logos) if f.lower().endswith(".png")]
+    
+    # Buscar coincidencia parcial entre el nombre del equipo y el nombre del archivo
+    logo_encontrado = None
+    for archivo in archivos:
+        nombre_archivo = os.path.splitext(archivo)[0].lower().replace(" ", "").replace("-", "").replace("'", "")
+        # Si el nombre del equipo está contenido en el archivo o viceversa
+        if nombre_equipo in nombre_archivo or nombre_archivo in nombre_equipo:
+            logo_encontrado = archivo
+            break
+    
+    # Mostrar el logo si se encontró
+    if logo_encontrado:
+        st.image(os.path.join(carpeta_logos, logo_encontrado), width=500)
+    else:
         st.warning("Logo no disponible.")
-with linea:
-    st.markdown("|\n"*44)
-
 with espacio:
     st.write("")
 
