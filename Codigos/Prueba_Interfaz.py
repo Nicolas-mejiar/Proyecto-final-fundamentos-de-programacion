@@ -92,7 +92,6 @@ with col3:
 #Se muestra la tabla original de la Premier
 st.markdown("---")
 st.title("Tabla De La Liga")
-st.set_page_config(layout="wide")
 st.dataframe(df, use_container_width=True, height=738, hide_index=True)
 
 #Se muestra la tabla con los equipos clasificados a la Champions
