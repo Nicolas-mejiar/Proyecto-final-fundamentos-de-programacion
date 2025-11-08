@@ -41,7 +41,7 @@ temporadas = {
     "2011/2012" : "Datos/premier_2011_2012.csv",
     "2012/2013" : "Datos/premier_2012_2013.csv",
     "2013/2014" : "Datos/premier_2013_2014.csv",
-    "2014/2015" : "Datos/premier_2014_2015.csv",
+    "2014/2015" : "Datos/premier_2014_2015.csv", 
     "2015/2016" : "Datos/premier_2015_2016.csv",
     "2016/2017" : "Datos/premier_2016_2017.csv",
     "2017/2018" : "Datos/premier_2017_2018.csv",
@@ -189,3 +189,22 @@ with col_info:
     st.text(f"Diferencia de Gol: {equipo_df['DG']}")
     st.text(f"Tarjetas Amarillas: {equipo_df['TA']}")
     st.text(f"Tarjetas Rojas: {equipo_df['TR']}")
+
+st.markdown("---")
+st.subheader("Grafico De Las Estadisticas")
+estadisticas = {
+    "Puntos": equipo_df["PUNTOS"],
+    "Partidos Jugados": equipo_df["PJ"],
+    "Victorias": equipo_df["PG"],
+    "Empates": equipo_df["PE"],
+    "Derrotas": equipo_df["PP"],
+    "Goles a Favor": equipo_df["GF"],
+    "Goles en Contra": equipo_df["GC"],
+    "Tarjetas Amarillas": equipo_df["TA"],
+    "Tarjetas Rojas": equipo_df["TR"]
+}
+# Convertir a DataFrame
+estadisticas_df = pd.DataFrame(list(estadisticas.items()), columns=["Estadística", "Valor"])
+
+# Mostrar el gráfico
+st.bar_chart(data=estadisticas_df, x="Estadística", y="Valor", use_container_width=True)
