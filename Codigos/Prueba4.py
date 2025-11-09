@@ -1,7 +1,6 @@
 import pandas as pd #Libreria para tabular los datos 
 import os #Libreria para limpiar pantalla
 import time #Libreria para usar el tiempo
-from tabulate import tabulate #Libreria para diseñar las tablas (Solo se importa la funcion principal)
 
 #Funcion para limpiar pantalla
 def limpiar_Pantalla():
