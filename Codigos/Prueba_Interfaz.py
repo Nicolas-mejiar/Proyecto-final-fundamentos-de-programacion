@@ -1,18 +1,16 @@
 #IMPORTANTE#
 #Instalar las librerias, escribir en la terminal "pip install streamlit"
-#Para ejecutar el codigo escribir en la terminal "streamlit run Codigos/Prueba4.py"
+#Para ejecutar el codigo escribir en la terminal "streamlit run Codigos/Prueba_Interfaz.py"
 #Para abrir la interfaz precionar control + clic izquierdo en el link que aparece en la terminal a la derecha de "Local URL:"
 
 
 import streamlit as st #Libreria para la interfaz web
-import pandas as pd #Libreria para poder tabular los datos y usar archivos .csv
-import re #Libreria para poder manipular texto con patrones
-import os 
-
-st.set_page_config(layout="wide")
+import pandas as pd #Libreria para utilizar datos tabulares como .csv
+import re #Libreria para trabajar con expreciones regulares
+import os #Libreria para que el programa pueda hacer uso de archivos externos
 
 #Funciones
-#Funcion para cargar los datos del excel en el data frame 
+#Funcion para cargar los datos de los archivos .csv en un dataframe
 def cargar_Datos(ruta):
     df = pd.read_csv(ruta, sep= ";")
     df["ENTRENADOR"] = df["ENTRENADOR"].apply(lambda x: re.sub(r'(?<!^)(?=[A-Z])', ' ', x)) #Separa el Nombre del Entrenador
@@ -21,11 +19,14 @@ def cargar_Datos(ruta):
     return df
 
 #Programa Principal
+#Se define que se va a usar todo el ancho de la interfaz
+st.set_page_config(layout="wide")
 
 #Selector De Temporadas
-
+#Titulo
 st.title(("Elija La Temporada (2000-2025)"))
 
+#Se crea un diccionario que relaciona cada temporada con su archivo .csv correspondiente
 temporadas = {
     "2000/2001" : "Datos/premier_2000_2001.csv",
     "2001/2002" : "Datos/premier_2001_2002.csv",
@@ -54,71 +55,68 @@ temporadas = {
     "2024/2025" : "Datos/premier_2024_2025.csv"
 }
 
+#Boton para que el usuario pueda cambiar de temporada
 temporada_sel = st.selectbox("Selecciona una temporada", list(temporadas.keys()))
 
+#Se guarda la temporada seleccionada en ruta 
 ruta = temporadas[temporada_sel]
-# Cargar datos
 if not os.path.exists(ruta):
     st.error(f"No se encontró el archivo: {ruta}")
     st.stop()
 
+#Se llama a la funcion y se guarda el dataframe en df
 df = cargar_Datos(ruta)
 df = df.sort_values(by="EQUIPO")
 
-#Columnas De La Premier League
+#Se configura la interfaz web para ser mostrada por columnas
 col1,linea1,espacio1,col2,col3 = st.columns([3,0.01,0.1,3,3])
-
 with col1:
     st.image("Logos/Premier_League.png",width=500,)
-
 with linea1:
     st.markdown("|\n"*30)
-
 with espacio1:
     st.write("")
-
 with col2:
     st.title("PREMIER LEAGUE")
     st.subheader("Pais: Inglaterra")
     st.subheader("Division: 1")
     st.subheader(f"Temporada: {temporada_sel}")
     st.subheader("Partidos: 380")
-
 with col3:
     st.subheader("Leyenda De Columnas:")
     st.markdown("1. PJ = Partidos Jugados\n2. PG = Partidos Ganados\n3. PE = Partidos Empatados\n4. PP = Partidos Perdidos\n5. GF = Goles A Favor\n" \
     "6. GC = Goles En Contra\n7. DG = Diferencia De Gol\n8. TA = Tarjetas Amarillas\n9. TR = Tarjetas Rojas")
 
-#Se muestra la tabla original de la Premier
+#Se muestra la tabla de origianl de la premier
 st.markdown("---")
 st.title("Tabla De La Liga")
 st.dataframe(df, use_container_width=True, height=738, hide_index=True)
 
-#Se muestra la tabla con los equipos clasificados a la Champions
+#Se muestra la tabla con los equipos clasificados a la Champions League
 st.markdown("---")
 st.title("Equipos clasificados a la Champions League")
 df_ordenado = df.sort_values(by="PUNTOS", ascending=False).reset_index(drop=True)
 top_5 = df_ordenado.head(5)
 st.dataframe(top_5, use_container_width=True, hide_index=True)
 
-#Se muestra la tabla con los equipos clasificados a la Europa 
+#Se muestra la tabla con los equipos clasificados a la Europa League
 st.markdown("---")
 st.title("Equipos Clasificados A La Europa League")
 top_6_7 = df_ordenado[5:7]
 st.dataframe(top_6_7, use_container_width=True, hide_index=True)
 
-#Se muestra la tabla con los equipos que Descienden
+#Se muestra la tabla con los equipos que Descienden 
 st.markdown("---")
 st.title("Equipos Que Descienden")
 ultimos_3 = df_ordenado.tail(3)
 st.dataframe(ultimos_3, use_container_width=True, hide_index=True)
 
-#Se muestra al equipo que gano la liga en la temporada 24/25
+#Se muestra al equipo que gano la liga en esa temporada
 st.markdown("---")
 st.title("Campeon de la Premier")
 ganador = df.loc[df["PUNTOS"].idxmax()]
 
-#Columnas del equipo ganador
+#Se divide la seccion en 2 columnas logo y estadisticas del equipo
 logo,datos = st.columns([2,3])
 with logo:
     nombre_logo = ganador['EQUIPO'].replace(' ', '').replace('-', '').lower()
@@ -133,47 +131,37 @@ with datos:
     st.subheader(f"• Derrotas: {ganador["PP"]}")
 st.markdown("---")
 
-#Futura Opcion en la que el usuario podra buscar un equipo y mostrar sus estadisticas
+#Opcion para buscar las estadisticas de un equipo
+#Titulo
 st.title("Buscar Estadísticas De Un Equipo")
 
-# Lista de equipos ordenada alfabéticamente
+#Se configura para mostrar los equipos en orden alfabetico
 equipos = df["EQUIPO"].sort_values().unique()
 
-# Selectbox para elegir el equipo
+#Se crea un boton para que el usuario elija el equipo que desee
 equipo_seleccionado = st.selectbox("Selecciona un equipo", equipos)
 
-# Filtrar el dataframe para el equipo seleccionado
+#Se filtra el dataframe para el equipo seleccionado
 equipo_df = df[df["EQUIPO"] == equipo_seleccionado].iloc[0]
 
-# Mostrar estadísticas
+#Columnas para mostrar el logo y las estadisticas del equipo seleccionado
 col_logo,espacio,col_info = st.columns([1,0.5,2])   
 with col_logo:
-    # Normalizar el nombre del equipo (todo en minúsculas, sin espacios, guiones ni apóstrofes)
     nombre_equipo = equipo_df['EQUIPO'].lower().replace(" ", "").replace("-", "").replace("'", "")
-    
-    # Carpeta donde están los logos
     carpeta_logos = "Logos"
-    
-    # Listar todos los archivos .png
     archivos = [f for f in os.listdir(carpeta_logos) if f.lower().endswith(".png")]
-    
-    # Buscar coincidencia parcial entre el nombre del equipo y el nombre del archivo
     logo_encontrado = None
     for archivo in archivos:
         nombre_archivo = os.path.splitext(archivo)[0].lower().replace(" ", "").replace("-", "").replace("'", "")
-        # Si el nombre del equipo está contenido en el archivo o viceversa
         if nombre_equipo in nombre_archivo or nombre_archivo in nombre_equipo:
             logo_encontrado = archivo
             break
-    
-    # Mostrar el logo si se encontró
     if logo_encontrado:
         st.image(os.path.join(carpeta_logos, logo_encontrado), width=500)
     else:
         st.warning("Logo no disponible.")
 with espacio:
     st.write("")
-
 with col_info:
     st.subheader(f"Equipo: {equipo_df['EQUIPO']}")
     st.text(f"Entrenador: {equipo_df['ENTRENADOR']}")
@@ -189,6 +177,7 @@ with col_info:
     st.text(f"Tarjetas Amarillas: {equipo_df['TA']}")
     st.text(f"Tarjetas Rojas: {equipo_df['TR']}")
 
+#Se muetran las estadisticas en un grafico de barras
 st.markdown("---")
 st.subheader("Grafico De Las Estadisticas")
 estadisticas = {
@@ -202,8 +191,9 @@ estadisticas = {
     "Tarjetas Amarillas": equipo_df["TA"],
     "Tarjetas Rojas": equipo_df["TR"]
 }
-# Convertir a DataFrame
+
+# Se convierten las estadisticas en un dataframe
 estadisticas_df = pd.DataFrame(list(estadisticas.items()), columns=["Estadística", "Valor"])
 
-# Mostrar el gráfico
+#Se crea un grafico de barras con el dataframe
 st.bar_chart(data=estadisticas_df, x="Estadística", y="Valor", use_container_width=True)
