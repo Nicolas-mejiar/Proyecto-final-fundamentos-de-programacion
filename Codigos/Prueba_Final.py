@@ -60,9 +60,6 @@ temporada_sel = st.selectbox("Selecciona una temporada", list(temporadas.keys())
 
 #Se guarda la temporada seleccionada en ruta 
 ruta = temporadas[temporada_sel]
-if not os.path.exists(ruta):
-    st.error(f"No se encontró el archivo: {ruta}")
-    st.stop()
 
 #Se llama a la funcion y se guarda el dataframe en df
 df = cargar_Datos(ruta)
@@ -145,7 +142,8 @@ equipo_seleccionado = st.selectbox("Selecciona un equipo", equipos)
 equipo_df = df[df["EQUIPO"] == equipo_seleccionado].iloc[0]
 
 #Columnas para mostrar el logo y las estadisticas del equipo seleccionado
-col_logo,espacio,col_info = st.columns([1,0.5,2])   
+col_logo,espacio2,col_info = st.columns([1,0.5,2]) 
+
 with col_logo:
     nombre_equipo = equipo_df['EQUIPO'].lower().replace(" ", "").replace("-", "").replace("'", "")
     carpeta_logos = "Logos"
@@ -160,7 +158,7 @@ with col_logo:
         st.image(os.path.join(carpeta_logos, logo_encontrado), width=500)
     else:
         st.warning("Logo no disponible.")
-with espacio:
+with espacio2:
     st.write("")
 with col_info:
     st.subheader(f"Equipo: {equipo_df['EQUIPO']}")
