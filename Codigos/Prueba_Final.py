@@ -1,6 +1,6 @@
 #IMPORTANTE#
 #Instalar las librerias, escribir en la terminal "pip install streamlit"
-#Para ejecutar el codigo escribir en la terminal "streamlit run Codigos/Prueba_Interfaz.py"
+#Para ejecutar el codigo escribir en la terminal "streamlit run Codigos/Prueba_Final.py"
 #Para abrir la interfaz precionar control + clic izquierdo en el link que aparece en la terminal a la derecha de "Local URL:"
 
 
